@@ -1,0 +1,4 @@
+{
+  "command": "gradlew stryker",
+  "reporters": ["console", "html"]
+}
