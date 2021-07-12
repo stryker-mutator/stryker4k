@@ -1,8 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "io.stryker-mutator"
-version = "0.1.0"
-
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization") version "1.4.20"
