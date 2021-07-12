@@ -57,12 +57,6 @@ publishing {
             from(components["java"])
         }
     }
-
-    repositories {
-        maven {
-            url = uri("")
-        }
-    }
 }
 
 sonarqube {
