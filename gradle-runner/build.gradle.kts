@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
-    `maven-publish`
     `java-gradle-plugin`
+    id("com.gradle.plugin-publish") version "0.14.0"
 }
 
 repositories {
@@ -45,4 +45,10 @@ gradlePlugin {
             implementationClass = "Stryker4kGradlePlugin"
         }
     }
+}
+
+pluginBundle {
+    website = "https://stryker-mutator.io"
+    vcsUrl = "https://github.com/stryker-mutator/stryker4k.git"
+    tags = listOf("testing", "unit-testing", "kotlin", "gradle", "mutation-testing", "test-automation", "gradle-plugin", "testing-tools", "stryker", "stryker4k")
 }

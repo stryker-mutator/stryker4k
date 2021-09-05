@@ -36,6 +36,8 @@ jobs:
          mkdir -p ~/.gradle
          echo "sonatypeUsername = ${{ secrets.SONATYPE_USERNAME }}" >> ~/.gradle/gradle.properties
          echo "sonatypePassword = ${{ secrets.SONATYPE_PASSWORD }}" >> ~/.gradle/gradle.properties
+         echo "gradle.publish.key = ${{ secrets.GRADLE_PUBLISH_KEY }}" >> ~/.gradle/gradle.properties
+         echo "gradle.publish.secret = ${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
      - name: Import GPG secret
        run: echo $PGP_SECRET | base64 --decode | gpg --batch --import
        env:

@@ -5,6 +5,7 @@ plugins {
     kotlin("plugin.serialization") version "1.4.20"
     `java-library`
     `maven-publish`
+    signing
     jacoco
     id("io.gitlab.arturbosch.detekt") version "1.17.1"
     id("org.sonarqube") version "3.3"
@@ -47,13 +48,73 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
 
+tasks.jar {
+    manifest {
+        attributes(mapOf(
+            "Implementation-Title" to project.name,
+            "Implementation-Version" to project.version
+        ))
+    }
+}
+
+val sourceJar by tasks.creating(Jar::class) {
+    from(sourceSets.getByName("main").allSource)
+    archiveClassifier.set("sources")
+}
+
+val javadocJar by tasks.creating(Jar::class) {
+    from(tasks.getByName("javadoc"))
+    archiveClassifier.set("javadoc")
+}
+
+tasks.withType(Javadoc::class) {
+    (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
+}
+
 publishing {
     publications {
         create<MavenPublication>("stryker4k-core") {
+            pom {
+                name.set("Stryker4k core")
+                description.set("Stryker4k, the mutation testing framework for Kotlin. Core library")
+                url.set("https://github.com/stryker-mutator/stryker4k")
+                inceptionYear.set("2021")
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("Nickmanbear")
+                        name.set("Kees Vaes")
+                    }
+                }
+                scm {
+                    connection.set("scm:https://github.com/stryker-mutator/stryker4k.git")
+                    developerConnection.set("scm:git@github.com:stryker-mutator/stryker4k.git")
+                    url.set("https://github.com/stryker-mutator/stryker4k")
+                }
+            }
+            groupId = "io.stryker-mutator"
             artifactId = "stryker4k-core"
+            version = project.version.toString()
+
+            artifact(javadocJar)
+            artifact(sourceJar)
+
             from(components["java"])
         }
     }
+}
+
+signing {
+    sign(publishing.publications["stryker4k-core"])
+}
+
+tasks.withType(Javadoc::class) {
+    (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
 }
 
 sonarqube {
