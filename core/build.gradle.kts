@@ -110,6 +110,8 @@ publishing {
 }
 
 signing {
+    useGpgCmd()
+
     sign(publishing.publications["stryker4k-core"])
 }
 

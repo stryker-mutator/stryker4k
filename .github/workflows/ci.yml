@@ -34,16 +34,11 @@ jobs:
          java-version: 11
      - run: |
          mkdir -p ~/.gradle
-         echo "sonatypeUsername = ${{ secrets.SONATYPE_USERNAME }}" >> ~/.gradle/gradle.properties
-         echo "sonatypePassword = ${{ secrets.SONATYPE_PASSWORD }}" >> ~/.gradle/gradle.properties
-         echo "gradle.publish.key = ${{ secrets.GRADLE_PUBLISH_KEY }}" >> ~/.gradle/gradle.properties
-         echo "gradle.publish.secret = ${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
-     - name: Import GPG secret
-       run: echo $PGP_SECRET | base64 --decode | gpg --batch --import
-       env:
-         PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
-         PGP_SECRET: ${{ secrets.PGP_SECRET }}
+         echo "sonatypeUsername=${{ secrets.SONATYPE_USERNAME }}" >> ~/.gradle/gradle.properties
+         echo "sonatypePassword=${{ secrets.SONATYPE_PASSWORD }}" >> ~/.gradle/gradle.properties
+         echo "gradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }}" >> ~/.gradle/gradle.properties
+         echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}" >> ~/.gradle/gradle.properties
+         echo ${{ secrets.PGP_SECRET }} | base64 --decode | gpg --batch --import
+         gpg -s --batch --pinentry-mode loopback --passphrase ${{ secrets.PGP_PASSPHRASE }}
      - name: Publish
-       run: ./gradlew publishToSonatype closeSonatypeStagingRepository
-       env:
-         PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+       run: ./gradlew publishToSonatype closeSonatypeStagingRepository -Psigning.gnupg.executable=gpg -Psigning.gnupg.keyName="1977A26A5D2A8BCA" -Psinging.gnupg.passphrase=${{ secrets.PGP_PASSPHRASE }}
