@@ -11,8 +11,6 @@ import java.io.IOException
 object MutationPlacer {
     val logger = LoggingUtility()
 
-    var currentMutationNumber = 1
-
     fun placeMutations(sourceFiles: List<SourceFile>, tempDirPath: String) {
         sourceFiles.forEach { sourceFile ->
             sourceFile.originalText = sourceFile.getText()
@@ -32,10 +30,9 @@ object MutationPlacer {
 
     private fun whenExpressionGenerator(mutable: Mutable): KtElement {
         var whenExpressionString = "when(System.getenv(\"ACTIVE_MUTATION\") ?: null) {"
-        mutable.mutations.forEach { mutation ->
-            mutation.id = currentMutationNumber
+        mutable.mutations.forEachIndexed { index, mutation ->
+            mutation.id = index + 1
             whenExpressionString += "\n\"${mutation.id}\" -> ${mutation.getText()}"
-            currentMutationNumber++
         }
         whenExpressionString += "\nelse -> ${mutable.getText()}\n}"
 

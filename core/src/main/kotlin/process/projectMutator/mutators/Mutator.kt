@@ -15,7 +15,7 @@ abstract class Mutator<T> where T: KtElement {
     abstract val type: Class<T>
     abstract val finderCondition: (T) -> Boolean
 
-    abstract fun mutateElement(mutable: Mutable): MutableList<Mutation>
+    abstract fun mutateElement(mutable: Mutable): List<Mutation>
 
     fun mutateFile(sourceFile: SourceFile): List<Mutable> {
         val elementsOfType = PsiUtility.findElementsInFile(sourceFile.psiFile, type)

@@ -17,9 +17,9 @@ object StringLiteralMutator : Mutator<KtStringTemplateExpression>() {
         PsiTreeUtil.getParentOfType(element, KtStringTemplateExpression::class.java) == null
     }
 
-    override fun mutateElement(mutable: Mutable): MutableList<Mutation> {
+    override fun mutateElement(mutable: Mutable): List<Mutation> {
         val code = if (mutable.getText() == "\"\"") "\"Stryker was here!\"" else "\"\""
 
-        return mutableListOf(Mutation(mutable, PsiUtility.createPsiElement(code), name))
+        return listOf(Mutation(mutable, PsiUtility.createPsiElement(code), name))
     }
 }
