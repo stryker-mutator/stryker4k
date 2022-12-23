@@ -36,7 +36,7 @@ For projects using other build tools or for a more optimized Gradle experience, 
 This file should look something like this:
 ```json
 {
-    "command": "gradlew test --rerun-tasks"
+    "command": "./gradlew test --rerun-tasks"
 }
 ```
 `"gradlew test --rerun-tasks"` is where your custom command your project uses for running your tests should go.

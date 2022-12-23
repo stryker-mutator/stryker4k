@@ -4,17 +4,17 @@ For projects using other build tools or for a more optimized Gradle experience, 
 This file should look something like this:
 ```json
 {
-    "command": "gradlew test --rerun-tasks"
+    "command": "./gradlew test --rerun-tasks"
 }
 ```
-`"gradlew test --rerun-tasks"` is where your custom command your project uses for running your tests should go.
+`"./gradlew test --rerun-tasks"` is where your custom command your project uses for running your tests should go.
 
 ##Configuration options
 
 ### `command` [`string`]
 
-**Config file:** `"command": "gradlew test --rerun-tasks"`  
-**Default value:** `"gradlew test --rerun-tasks"`  
+**Config file:** `"command": "./gradlew test --rerun-tasks"`  
+**Default value:** `"./gradlew test --rerun-tasks"`  
 **Description:**  
 With `command` you configure the command that should be used by Stryker4k to run your project's tests during mutation testing.
 The default for this will use the Gradle wrapper to run the `test` task, and it's dependencies, for every generated mutation.
@@ -33,6 +33,6 @@ tasks.register<Test>("stryker") {
     useJUnit()
 }
 ```
-2. Set the command value in your `stryker-conf.json` to: `gradlew stryker`
+2. Set the command value in your `stryker-conf.json` to: `./gradlew stryker`
 
 This configuration wil cache the output of your build tasks while still rerunning your test task for every mutation.

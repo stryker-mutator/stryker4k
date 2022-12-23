@@ -22,7 +22,7 @@ class ProjectLoaderTests {
         unmockkAll()
         clearAllMocks()
         Configuration.sourcePath = ""
-        Configuration.command = "gradlew test --rerun-tasks"
+        Configuration.command = "./gradlew test --rerun-tasks"
         Configuration.reporters = listOf(ConsoleReporter())
     }
 
@@ -39,7 +39,7 @@ class ProjectLoaderTests {
         val testPath = "test\\path"
         mockkObject(FileUtility)
         every { FileUtility.readFile(any<String>()) } answers { throw IOException() }
-        every { FileUtility.readDir(any()) } returns listOf()
+        every { FileUtility.readDir(any()) } returns emptyList()
         mockkObject(PsiUtility)
         every { PsiUtility.createPsiFile(any()) } returns mockk()
         val target = ProjectLoader
@@ -50,7 +50,7 @@ class ProjectLoaderTests {
         // Assert
         assert(result.isEmpty())
         assert(Configuration.sourcePath == "test/path")
-        assert(Configuration.command == "gradlew test --rerun-tasks")
+        assert(Configuration.command == "./gradlew test --rerun-tasks")
         assert(Configuration.reporters.size == 1)
         assert(Configuration.reporters[0] is ConsoleReporter)
         assert(target.logger.logged[0] == "Using default configuration")
@@ -73,7 +73,7 @@ class ProjectLoaderTests {
         // Assert
         assert(result.isEmpty())
         assert(Configuration.sourcePath == "test/path")
-        assert(Configuration.command == "gradlew test --rerun-tasks")
+        assert(Configuration.command == "./gradlew test --rerun-tasks")
         assert(Configuration.reporters.size == 1)
         assert(Configuration.reporters[0] is ConsoleReporter)
         assert(target.logger.logged[0] == "Failed to load configuration file. Using default configuration")
@@ -127,7 +127,7 @@ class ProjectLoaderTests {
         ProjectLoader.loadProject(testPath)
 
         // Assert
-        assert(Configuration.command == "gradlew test --rerun-tasks")
+        assert(Configuration.command == "./gradlew test --rerun-tasks")
         assert(Configuration.reporters.size == 2)
         assert(Configuration.reporters[0] is ConsoleReporter)
         assert(Configuration.reporters[1] is HTMLReporter)

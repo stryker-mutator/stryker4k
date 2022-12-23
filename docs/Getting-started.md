@@ -24,16 +24,16 @@ For projects using other build tools or for a more optimized Gradle experience, 
 This file should look something like this:
 ```json
 {
-    "command": "gradlew test --rerun-tasks"
+    "command": "./gradlew test --rerun-tasks"
 }
 ```
-`"gradlew test --rerun-tasks"` is where your custom command your project uses for running your tests should go.
+`"./gradlew test --rerun-tasks"` is where your custom command your project uses for running your tests should go.
 
 For more information on this topic please visit [our configuration page](https://stryker-mutator.io/docs/stryker4k/Configuration).
 
 ## 3 Run
 
-Please run Stryker4k by running `gradlew stryker4k` in your projects root folder.
+Please run Stryker4k by running `./gradlew stryker4k` in your projects root folder.
 
 ---
 
@@ -43,7 +43,7 @@ Please run Stryker4k by running `gradlew stryker4k` in your projects root folder
 
 To use Stryker4k with Kotlin projects that do not use Gradle as their build tool. Please first download the Stryker4k sourcecode from https://github.com/stryker-mutator/stryker4k.git.
 
-When you've downloaded the sourcecode, use the `gradlew build command-runner` command to build the Stryker4k command-runner subproject.
+When you've downloaded the sourcecode, use the `./gradlew build command-runner` command to build the Stryker4k command-runner subproject.
 
 The build will product a JAR file in the `build\libs` folder. We will use this JAR to run Stryker4k on your project.
 

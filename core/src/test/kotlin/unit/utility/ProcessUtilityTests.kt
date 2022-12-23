@@ -16,7 +16,7 @@ class ProcessUtilityTests {
         every { ProcessUtility.startProcess(any()) } returns processMock
 
         // Act
-        val result = sut.runCommand("gradlew test", "test", "ACTIVE_MUTATION", "2")
+        val result = sut.runCommand("./gradlew test", "test", "ACTIVE_MUTATION", "2")
 
         // Assert
         verify { sut.startProcess(any()) }
