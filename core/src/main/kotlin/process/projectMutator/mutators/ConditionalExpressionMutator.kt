@@ -21,11 +21,9 @@ object ConditionalExpressionMutator : Mutator<KtBinaryExpression>() {
         !element.right!!.text.contains("null")
     }
 
-    override fun mutateElement(mutable: Mutable): MutableList<Mutation> {
-        val mutationTextList = arrayOf("true", "false")
-
-        return mutationTextList.map {
+    override fun mutateElement(mutable: Mutable): List<Mutation> {
+        return listOf("true", "false").map {
             Mutation(mutable, PsiUtility.createPsiElement(it), name)
-        } as MutableList<Mutation>
+        }
     }
 }

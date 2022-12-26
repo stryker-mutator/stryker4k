@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization") version "1.4.20"
+    kotlin("plugin.serialization") version "1.7.21"
     `java-library`
     `maven-publish`
     signing
@@ -18,11 +18,12 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.20")
     testImplementation(kotlin("test-junit"))
-    testImplementation("io.mockk:mockk:1.10.6")
-    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.4.20")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
-    implementation("io.stryker-mutator:mutation-testing-elements:1.7.0")
-    implementation("io.stryker-mutator:mutation-testing-metrics-circe_2.13:1.7.0")
+    testImplementation("io.mockk:mockk:1.13.2")
+    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.21")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    implementation("io.stryker-mutator:mutation-testing-elements:1.7.11")
+    implementation("io.stryker-mutator:mutation-testing-metrics-circe_2.13:1.7.11")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation(gradleApi())
 }
 

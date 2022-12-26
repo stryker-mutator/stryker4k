@@ -17,7 +17,7 @@ import kotlin.system.exitProcess
 object ProjectLoader {
     val logger = LoggingUtility()
 
-    fun loadProject(path: String): MutableList<SourceFile> {
+    fun loadProject(path: String): List<SourceFile> {
         loadConfig(path)
 
         return loadKotlinFiles(path)
@@ -43,7 +43,7 @@ object ProjectLoader {
         }
     }
 
-    private fun loadKotlinFiles(path: String): MutableList<SourceFile> {
+    private fun loadKotlinFiles(path: String): List<SourceFile> {
         val kotlinFiles = mutableListOf<SourceFile>()
         try {
             FileUtility.readDir(path).forEach {

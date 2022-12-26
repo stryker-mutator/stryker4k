@@ -22,11 +22,11 @@ object LogicalOperatorMutator : Mutator<KtBinaryExpression>() {
         !element.right!!.text.contains("null")
     }
 
-    override fun mutateElement(mutable: Mutable): MutableList<Mutation> {
+    override fun mutateElement(mutable: Mutable): List<Mutation> {
         val left = (mutable.originalElement as KtBinaryExpression).left
         val operator = mutable.originalElement.operationReference.text
         val right = mutable.originalElement.right
-        if (left == null || right == null) return mutableListOf()
+        if (left == null || right == null) return emptyList()
 
         val mutationList = when(operator) {
             "||" -> arrayOf("&&")
@@ -38,6 +38,6 @@ object LogicalOperatorMutator : Mutator<KtBinaryExpression>() {
             name
         ) }
 
-        return mutationList as MutableList<Mutation>
+        return mutationList
     }
 }

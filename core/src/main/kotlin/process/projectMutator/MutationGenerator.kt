@@ -17,7 +17,7 @@ object MutationGenerator {
         LogicalOperatorMutator
     )
 
-    fun generateMutations(sourceFiles: List<SourceFile>): MutableList<Mutation> {
+    fun generateMutations(sourceFiles: List<SourceFile>): List<Mutation> {
         val mutations = mutableListOf<Mutation>()
         sourceFiles.forEach { sourceFile ->
             mutators.forEach { mutator -> sourceFile.mutables.addAll(mutator.mutateFile(sourceFile)) }

@@ -6,12 +6,12 @@ import process.testRunner.Reporter
 
 @Serializable
 data class ConfigLoader(
-    val command: String = "gradlew test --rerun-tasks",
     val reporters: Array<String> = arrayOf("console")
+    val command: String = "./gradlew test --rerun-tasks",
 )
 
 object Configuration {
     var sourcePath: String = ""
-    var command: String = "gradlew test --rerun-tasks"
+    var command: String = "./gradlew test --rerun-tasks"
     var reporters: List<Reporter> = listOf(ConsoleReporter())
 }
